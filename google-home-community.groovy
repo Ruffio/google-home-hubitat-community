@@ -150,10 +150,12 @@ def updated() {
 }
 
 def handleDeviceEvent(event) {
-    LOGGER.debug("Handling device event, deviceId=${event.deviceId} device=${event.device}")
-    def deviceId = event.deviceId
-    def deviceInfo = allKnownDevices()."${deviceId}"
-    reportStateForDevices([(deviceId): deviceInfo])
+    LOGGER.debug("Handling device event, deviceId=${event.deviceId}")
+    def deviceId = event.deviceId.toString()   
+    def deviceInfo = allKnownDevices().get(deviceId)
+    if (deviceInfo) {
+        reportStateForDevices([(deviceId): deviceInfo])
+    }
 }
 
 private reportStateForDevices(devices) {
