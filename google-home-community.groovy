@@ -246,17 +246,22 @@ def appButtonHandler(buttonPressed) {
     }
 }
 
-private hubVersionLessThan(versionString) {
-    def hubVersion = location.hub.firmwareVersionString.split("\\.")
-    def targetVersion = versionString.split("\\.")
-    for (def i = 0; i < targetVersion.length; ++i) {
-        if ((hubVersion[i] as int) < (targetVersion[i] as int)) {
-            return true
-        } else if ((hubVersion[i] as int) > (targetVersion[i] as int)) {
-            return false
-        }
+private boolean hubVersionLessThan(String versionString) {
+    // 1. If the cache is empty, populate it ONCE
+    if (CACHED_HUB_VERSION == null) {
+        CACHED_HUB_VERSION = location.hub.firmwareVersionString.tokenize('.').collect { it as int }
     }
-    return false
+    
+    // 2. Parse the target version we are checking against
+    List<Integer> targetVer = versionString.tokenize('.').collect { it as int }
+    
+    // 3. Compare using the cached hub version
+    for (int i = 0; i < Math.min(CACHED_HUB_VERSION.size(), targetVer.size()); i++) {
+        if (CACHED_HUB_VERSION[i] < targetVer[i]) return true
+        if (CACHED_HUB_VERSION[i] > targetVer[i]) return false
+    }
+    
+    return CACHED_HUB_VERSION.size() < targetVer.size()
 }
 
 @SuppressWarnings('MethodSize')
@@ -5626,3 +5631,6 @@ private static final THERMOSTAT_MODE_SETPOINT_ATTRIBUTE_PREFERENCES = [
         title: "${GOOGLE_THERMOSTAT_MODES[mode]} Setpoint Attribute",
     ]
 }
+
+@Field
+private static List<Integer> CACHED_HUB_VERSION = null
