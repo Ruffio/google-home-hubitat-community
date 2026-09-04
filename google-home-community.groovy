@@ -225,7 +225,7 @@ def requestSync() {
     ]
     def callbackData = [
         successMessage: "Finished requesting Google sync devices",
-        errorMessage: "Error requesting Google sync devices"
+        errorMessage: "Error requesting Google sync devices",
     ]
     try {
         asynchttpPost("handleAsyncResponse", params, callbackData)
