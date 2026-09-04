@@ -196,7 +196,7 @@ private reportStateForDevices(devices) {
         params.headers.authorization = "Bearer ${token}"
         def callbackData = [
             successMessage: "Finished posting device state requestId=${requestId}",
-            errorMessage: "Error posting device state requestId=${requestId}:\nrequest=${req}\nError: "
+            errorMessage: "Error posting device state requestId=${requestId}:\nrequest=${req}\nError: ",
         ]
         params.headers.Authorization = "Bearer ${token}"
         try {
