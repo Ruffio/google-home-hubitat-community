@@ -236,7 +236,7 @@ def requestSync() {
 
 def handleAsyncResponse(response, data) {
     if (response.hasError()) {
-        LOGGER.error("${data.errorMessage} ${response.getErrorMessage()}")
+        LOGGER.error("${data.errorMessage} ${response.errorMessage}")
     } else {
         LOGGER.debug(data.successMessage)
     }
