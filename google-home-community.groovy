@@ -83,6 +83,7 @@
 //   * Apr 12 2024 - Code cleanup
 //   * May 08 2026 - Move to the new "Integrations" menu
 //   * Jun 16 2026 - Optimize 'updated' method to only call 'allKnownDevices' once
+//   * Aug 03 2026 - Fix Authorization header in Report State requests on Hubitat 2.5.1
 
 import groovy.json.JsonException
 import groovy.json.JsonOutput
@@ -197,6 +198,7 @@ private reportStateForDevices(devices) {
             successMessage: "Finished posting device state requestId=${requestId}",
             errorMessage: "Error posting device state requestId=${requestId}:\nrequest=${req}\nError: "
         ]
+        params.headers.Authorization = "Bearer ${token}"
         try {
             asynchttpPost("handleAsyncResponse", params, callbackData)
         } catch (Exception ex) {
