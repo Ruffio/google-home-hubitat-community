@@ -251,14 +251,14 @@ private boolean hubVersionLessThan(String versionString) {
     if (CACHED_HUB_VERSION == null) {
         CACHED_HUB_VERSION = location.hub.firmwareVersionString.tokenize('.').collect { it as int }
     }
-    
+
     List<Integer> targetVer = versionString.tokenize('.').collect { it as int }
-    
+
     for (int i = 0; i < Math.min(CACHED_HUB_VERSION.size(), targetVer.size()); i++) {
-        if (CACHED_HUB_VERSION[i] < targetVer[i]) return true
-        if (CACHED_HUB_VERSION[i] > targetVer[i]) return false
+        if (CACHED_HUB_VERSION[i] < targetVer[i]) { return true }
+        if (CACHED_HUB_VERSION[i] > targetVer[i]) { return false }
     }
-    
+
     return false
 }
 
