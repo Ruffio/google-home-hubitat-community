@@ -163,7 +163,7 @@ def handleDeviceEvent(event) {
 def flushStateReports() {
     def pendingIds = state.pendingReportDeviceIds
     state.pendingReportDeviceIds = []
-    if (!pendingIds) return
+    if (!pendingIds) { return }
 
     def allDevices = allKnownDevices()
     def devicesToReport = [:]
