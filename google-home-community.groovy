@@ -247,12 +247,13 @@ def appButtonHandler(buttonPressed) {
     }
 }
 
+@SuppressWarnings('NoScriptBindings')
 private boolean hubVersionLessThan(String versionString) {
     if (CACHED_HUB_VERSION == null) {
-        CACHED_HUB_VERSION = location.hub.firmwareVersionString.tokenize('.').collect { it as int }
+        CACHED_HUB_VERSION = location.hub.firmwareVersionString.tokenize('.').collect { String part -> part as int }
     }
 
-    List<Integer> targetVer = versionString.tokenize('.').collect { it as int }
+    List<Integer> targetVer = versionString.tokenize('.').collect { String part -> part as int }
 
     for (int i = 0; i < Math.min(CACHED_HUB_VERSION.size(), targetVer.size()); i++) {
         if (CACHED_HUB_VERSION[i] < targetVer[i]) { return true }
